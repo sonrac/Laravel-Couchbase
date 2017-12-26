@@ -1,6 +1,6 @@
 <?php
     
-    use Mpociot\Couchbase\Query\Builder as Query;
+    use sonrac\Couchbase\Query\Builder as Query;
     
     class QueryBuilderTest extends TestCase
     {
@@ -18,7 +18,7 @@
          */
         public function testCollection()
         {
-            $this->assertInstanceOf('Mpociot\Couchbase\Query\Builder', DB::table('users'));
+            $this->assertInstanceOf('sonrac\Couchbase\Query\Builder', DB::table('users'));
         }
         
         /**

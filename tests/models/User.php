@@ -1,6 +1,6 @@
 <?php
 
-use Mpociot\Couchbase\Eloquent\Model as Eloquent;
+use sonrac\Couchbase\Eloquent\Model as Eloquent;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;

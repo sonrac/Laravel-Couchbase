@@ -6,7 +6,7 @@
  * Time: 13:23
  */
 
-namespace Mpociot\Couchbase;
+namespace sonrac\Couchbase;
 
 
 class Helper

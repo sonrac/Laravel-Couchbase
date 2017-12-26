@@ -19,7 +19,7 @@ abstract class BaseTestCase extends Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            Mpociot\Couchbase\CouchbaseServiceProvider::class,
+            sonrac\Couchbase\CouchbaseServiceProvider::class,
         ];
     }
 

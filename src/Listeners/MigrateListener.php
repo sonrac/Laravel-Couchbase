@@ -1,5 +1,5 @@
 <?php
-namespace Mpociot\Couchbase\Listeners;
+namespace sonrac\Couchbase\Listeners;
 
 use Couchbase\Exception;
 use Illuminate\Console\Events\CommandStarting;

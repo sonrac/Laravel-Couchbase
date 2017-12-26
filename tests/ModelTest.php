@@ -13,12 +13,12 @@ class ModelTest extends TestCase
     public function testNewModel()
     {
         $user = new User;
-        $this->assertInstanceOf('Mpociot\Couchbase\Eloquent\Model', $user);
-        $this->assertInstanceOf('Mpociot\Couchbase\Connection', $user->getConnection());
+        $this->assertInstanceOf('sonrac\Couchbase\Eloquent\Model', $user);
+        $this->assertInstanceOf('sonrac\Couchbase\Connection', $user->getConnection());
         $this->assertEquals(false, $user->exists);
         $this->assertEquals('users', $user->getTable());
         $this->assertEquals('users', $user->getCollectionName());
-        $this->assertInstanceOf(\Mpociot\Couchbase\Eloquent\Builder::class, $user->getCollection());
+        $this->assertInstanceOf(\sonrac\Couchbase\Eloquent\Builder::class, $user->getCollection());
         $this->assertEquals('_id', $user->getKeyName());
     }
 
@@ -163,7 +163,7 @@ class ModelTest extends TestCase
         $id = $user->_id;
         $check = User::find($id);
 
-        $this->assertInstanceOf('Mpociot\Couchbase\Eloquent\Model', $check);
+        $this->assertInstanceOf('sonrac\Couchbase\Eloquent\Model', $check);
         $this->assertEquals(true, $check->exists);
         $this->assertEquals($user->_id, $check->_id);
 
@@ -181,7 +181,7 @@ class ModelTest extends TestCase
         $users = User::get();
         $this->assertEquals(2, count($users));
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $users);
-        $this->assertInstanceOf('Mpociot\Couchbase\Eloquent\Model', $users[0]);
+        $this->assertInstanceOf('sonrac\Couchbase\Eloquent\Model', $users[0]);
     }
 
     public function testFirst()
@@ -192,7 +192,7 @@ class ModelTest extends TestCase
         ]);
 
         $user = User::first();
-        $this->assertInstanceOf('Mpociot\Couchbase\Eloquent\Model', $user);
+        $this->assertInstanceOf('sonrac\Couchbase\Eloquent\Model', $user);
         $this->assertEquals('John Doe', $user->name);
     }
 
@@ -219,7 +219,7 @@ class ModelTest extends TestCase
     {
         $user = User::create(['name' => 'Jane Poe']);
 
-        $this->assertInstanceOf('Mpociot\Couchbase\Eloquent\Model', $user);
+        $this->assertInstanceOf('sonrac\Couchbase\Eloquent\Model', $user);
         $this->assertEquals(true, $user->exists);
         $this->assertEquals('Jane Poe', $user->name);
 

@@ -404,7 +404,7 @@ class RelationsTest extends TestCase
      */
     public function testBelongsToManyCustom()
     {
-        /** @var \User|\Mpociot\Couchbase\Query\Builder $user */
+        /** @var \User|\sonrac\Couchbase\Query\Builder $user */
         $user = User::create(['name' => 'John Doe']);
         $group = $user->groups()->create(['name' => 'Admins']);
 
@@ -431,7 +431,7 @@ class RelationsTest extends TestCase
         $user = User::create(['name' => 'John Doe']);
         $groupsRelation = $user->groups();
 
-        $this->assertTrue($groupsRelation instanceof  \Mpociot\Couchbase\Relations\BelongsToMany, 'Assert that User->groups is a BelongsToManyRelation');
+        $this->assertTrue($groupsRelation instanceof  \sonrac\Couchbase\Relations\BelongsToMany, 'Assert that User->groups is a BelongsToManyRelation');
         $this->assertTrue(is_array($groupsRelation->getBindings()), 'Assert that bindings are an array');
         $this->assertTrue(is_array($groupsRelation->getRawBindings()), 'Assert that raw bindings are an array');
     }

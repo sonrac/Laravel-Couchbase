@@ -1,4 +1,4 @@
-<?php namespace Mpociot\Couchbase\Eloquent;
+<?php namespace sonrac\Couchbase\Eloquent;
 
 trait SoftDeletes
 {

@@ -1,10 +1,10 @@
-<?php namespace Mpociot\Couchbase\Query;
+<?php namespace sonrac\Couchbase\Query;
 
 use Illuminate\Database\Query\Builder as BaseBuilder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Mpociot\Couchbase\Connection;
-use Mpociot\Couchbase\Helper;
+use sonrac\Couchbase\Connection;
+use sonrac\Couchbase\Helper;
 
 class Builder extends BaseBuilder
 {

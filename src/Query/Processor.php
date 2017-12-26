@@ -1,4 +1,4 @@
-<?php namespace Mpociot\Couchbase\Query;
+<?php namespace sonrac\Couchbase\Query;
 
 use Illuminate\Database\Query\Processors\Processor as BaseProcessor;
 

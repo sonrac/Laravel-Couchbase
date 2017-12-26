@@ -1,4 +1,4 @@
-<?php namespace Mpociot\Couchbase\Relations;
+<?php namespace sonrac\Couchbase\Relations;
 
 use Illuminate\Database\Eloquent\Model;
 

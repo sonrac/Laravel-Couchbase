@@ -20,12 +20,12 @@ class ModelUUIDTest extends TestCase
     public function testNewModel()
     {
         $user = new UserUUID;
-        $this->assertInstanceOf('Mpociot\Couchbase\Eloquent\Model', $user);
-        $this->assertInstanceOf('Mpociot\Couchbase\Connection', $user->getConnection());
+        $this->assertInstanceOf('sonrac\Couchbase\Eloquent\Model', $user);
+        $this->assertInstanceOf('sonrac\Couchbase\Connection', $user->getConnection());
         $this->assertEquals(false, $user->exists);
         $this->assertEquals(static::COLLECTION_NAME, $user->getTable());
         $this->assertEquals(static::COLLECTION_NAME, $user->getCollectionName());
-        $this->assertInstanceOf(\Mpociot\Couchbase\Eloquent\Builder::class, $user->getCollection());
+        $this->assertInstanceOf(\sonrac\Couchbase\Eloquent\Builder::class, $user->getCollection());
         $this->assertEquals('_id', $user->getKeyName());
     }
 
@@ -99,7 +99,7 @@ class ModelUUIDTest extends TestCase
     function testBuilderInsert(){
         $query = User::query();
         /**
-         * @var \Mpociot\Couchbase\Query\Builder $query
+         * @var \sonrac\Couchbase\Query\Builder $query
          */
 
         $id = $query->setUuidEnable(true)->insertGetId(['name' => 'John Doe', 'age' => 35, 'title' => 'admin']);

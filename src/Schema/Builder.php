@@ -1,7 +1,7 @@
-<?php namespace Mpociot\Couchbase\Schema;
+<?php namespace sonrac\Couchbase\Schema;
 
 use Closure;
-use Mpociot\Couchbase\Connection;
+use sonrac\Couchbase\Connection;
 
 class Builder extends \Illuminate\Database\Schema\Builder
 {

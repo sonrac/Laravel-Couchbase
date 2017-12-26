@@ -1,4 +1,4 @@
-<?php namespace Mpociot\Couchbase;
+<?php namespace sonrac\Couchbase;
 
 use Couchbase\ClassicAuthenticator;
 use Couchbase\Cluster;
@@ -6,7 +6,7 @@ use Couchbase\PasswordAuthenticator;
 use CouchbaseBucket;
 use CouchbaseCluster;
 use CouchbaseN1qlQuery;
-use Mpociot\Couchbase\Query\Builder as QueryBuilder;
+use sonrac\Couchbase\Query\Builder as QueryBuilder;
 
 class Connection extends \Illuminate\Database\Connection
 {

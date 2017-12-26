@@ -1,11 +1,11 @@
-<?php namespace Mpociot\Couchbase\Eloquent;
+<?php namespace sonrac\Couchbase\Eloquent;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Pagination\Paginator;
-use Mpociot\Couchbase\Query\Builder as QueryBuilder;
+use sonrac\Couchbase\Query\Builder as QueryBuilder;
 use \Illuminate\Database\Eloquent\Model;
 
 class Builder extends EloquentBuilder

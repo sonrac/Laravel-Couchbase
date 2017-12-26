@@ -19,11 +19,11 @@ class _Auth_CreateBucketTest extends BaseTestCase
         $input = new ArrayInput([], $inputDefinition);
         $output = new DummyOutput();
         $commandStarting = new CommandStarting('migrate', $input, $output);
-        $listener = new \Mpociot\Couchbase\Listeners\MigrateListener();
+        $listener = new \sonrac\Couchbase\Listeners\MigrateListener();
 
         $listener->handle($commandStarting);
 
-        $connection = new \Mpociot\Couchbase\Connection(config('database.connections.couchbase'));
+        $connection = new \sonrac\Couchbase\Connection(config('database.connections.couchbase'));
 
         $this->assertEquals(
             1,

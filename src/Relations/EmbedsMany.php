@@ -1,9 +1,9 @@
-<?php namespace Mpociot\Couchbase\Relations;
+<?php namespace sonrac\Couchbase\Relations;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-use Mpociot\Couchbase\Helper;
+use sonrac\Couchbase\Helper;
 
 class EmbedsMany extends EmbedsOneOrMany
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Mpociot\Couchbase\Eloquent\Model as Eloquent;
+use sonrac\Couchbase\Eloquent\Model as Eloquent;
 
 class Role extends Eloquent
 {

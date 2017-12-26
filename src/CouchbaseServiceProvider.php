@@ -1,10 +1,10 @@
-<?php namespace Mpociot\Couchbase;
+<?php namespace sonrac\Couchbase;
 
 use Illuminate\Support\ServiceProvider;
-use Mpociot\Couchbase\Eloquent\Model;
-use Mpociot\Couchbase\Connection as CouchbaseConnection;
+use sonrac\Couchbase\Eloquent\Model;
+use sonrac\Couchbase\Connection as CouchbaseConnection;
 use Illuminate\Database\Connection as IlluminateConnection;
-use Mpociot\Couchbase\Listeners\MigrateListener;
+use sonrac\Couchbase\Listeners\MigrateListener;
 
 class CouchbaseServiceProvider extends ServiceProvider
 {

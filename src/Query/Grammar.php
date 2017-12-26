@@ -1,8 +1,8 @@
-<?php namespace Mpociot\Couchbase\Query;
+<?php namespace sonrac\Couchbase\Query;
 
 use Illuminate\Database\Query\Grammars\Grammar as BaseGrammar;
 use Illuminate\Database\Query\Builder as BaseBuilder;
-use Mpociot\Couchbase\Helper;
+use sonrac\Couchbase\Helper;
 
 class Grammar extends BaseGrammar
 {

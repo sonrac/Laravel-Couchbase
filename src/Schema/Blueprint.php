@@ -1,4 +1,4 @@
-<?php namespace Mpociot\Couchbase\Schema;
+<?php namespace sonrac\Couchbase\Schema;
 
 use Closure;
 use Illuminate\Database\Connection;

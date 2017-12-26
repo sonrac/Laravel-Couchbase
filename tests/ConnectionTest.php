@@ -14,7 +14,7 @@ class ConnectionTest extends TestCase
     public function testConnection()
     {
         $connection = DB::connection('couchbase');
-        $this->assertInstanceOf('Mpociot\Couchbase\Connection', $connection);
+        $this->assertInstanceOf('sonrac\Couchbase\Connection', $connection);
     }
 
     /**
@@ -35,13 +35,13 @@ class ConnectionTest extends TestCase
     public function testBucketWithTypes()
     {
         $collection = DB::connection('couchbase')->builder('unittests');
-        $this->assertInstanceOf('Mpociot\Couchbase\Query\Builder', $collection);
+        $this->assertInstanceOf('sonrac\Couchbase\Query\Builder', $collection);
 
         $collection = DB::connection('couchbase')->table('unittests');
-        $this->assertInstanceOf('Mpociot\Couchbase\Query\Builder', $collection);
+        $this->assertInstanceOf('sonrac\Couchbase\Query\Builder', $collection);
 
         $collection = DB::connection('couchbase')->type('unittests');
-        $this->assertInstanceOf('Mpociot\Couchbase\Query\Builder', $collection);
+        $this->assertInstanceOf('sonrac\Couchbase\Query\Builder', $collection);
     }
 
     /**

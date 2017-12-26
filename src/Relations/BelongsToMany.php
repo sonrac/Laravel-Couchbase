@@ -1,4 +1,4 @@
-<?php namespace Mpociot\Couchbase\Relations;
+<?php namespace sonrac\Couchbase\Relations;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -213,7 +213,7 @@ class BelongsToMany extends EloquentBelongsToMany
     public function attach($id, array $attributes = [], $touch = true)
     {
         if ($id instanceof Model) {
-            /** @var \Mpociot\Couchbase\Eloquent\Model $model */
+            /** @var \sonrac\Couchbase\Eloquent\Model $model */
             $model = $id;
 
             $id = $model->getKey();
