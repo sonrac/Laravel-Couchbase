@@ -1,8 +1,8 @@
 Laravel Couchbase
 ===============
 
-[![Build Status](http://img.shields.io/travis/mpociot/laravel-couchbase.svg)](https://travis-ci.org/mpociot/laravel-couchbase)
-[![codecov](https://codecov.io/gh/mpociot/laravel-couchbase/branch/master/graph/badge.svg)](https://codecov.io/gh/mpociot/laravel-couchbase)
+[![Build Status](http://img.shields.io/travis/sonrac/laravel-couchbase.svg)](https://travis-ci.org/mpociot/laravel-couchbase)
+[![codecov](https://codecov.io/gh/mpociot/laravel-couchbase/branch/master/graph/badge.svg)](https://codecov.io/gh/sonrac/laravel-couchbase)
 
 An Eloquent model and Query builder with support for Couchbase, using the original Laravel API. *This library extends the original Laravel classes, so it uses exactly the same methods.*
 
