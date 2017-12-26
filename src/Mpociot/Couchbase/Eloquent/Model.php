@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Mpociot\Couchbase\Helper;
 use Mpociot\Couchbase\Query\Builder as QueryBuilder;
 use Mpociot\Couchbase\Relations\EmbedsMany;
 use Mpociot\Couchbase\Relations\EmbedsOne;
@@ -31,6 +32,14 @@ abstract class Model extends BaseModel
      * @var Relation
      */
     protected $parentRelation;
+
+    /**
+     * If enable set uuid as unique identifier in record.
+     * If disable set uniqid as unique identifier in record.
+     * @var bool
+     */
+
+    public $uuid = false;
 
     /**
      * Custom accessor for the model's id.
@@ -195,10 +204,6 @@ abstract class Model extends BaseModel
             return;
         }
 
-        if($key === $this->primaryKey && $key !== '_id') {
-            $key = '_id';
-        }
-
         // Dot notation support.
         if (str_contains($key, '.') and array_has($this->attributes, $key)) {
             return $this->getAttributeValue($key);
@@ -242,9 +247,6 @@ abstract class Model extends BaseModel
      */
     public function setAttribute($key, $value)
     {
-        if($key === $this->primaryKey && $key !== '_id') {
-            $key = '_id';
-        }
 
         // Support keys in dot notation.
         if (str_contains($key, '.')) {
@@ -480,14 +482,18 @@ abstract class Model extends BaseModel
         // type value or get this total count of records deleted for logging, etc.
         $count = 0;
 
-        $ids = is_array($ids) ? $ids : func_get_args();
-
         $instance = new static;
 
         // We will actually pull the models from the database table and call delete on
         // each of them individually so that their events get fired properly with a
         // correct set of attributes in case the developers wants to check these.
         $key = $instance->getKeyName();
+
+        $ids = is_array($ids) ? $ids : func_get_args();
+
+        foreach ($ids as $index => $id){
+            $ids[$index] = Helper::getIdWithCollection($instance->getCollectionName(), $id);
+        }
 
         foreach ($instance->whereIn($key, $ids)->get() as $model) {
             if ($model->delete()) {

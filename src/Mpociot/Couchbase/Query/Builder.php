@@ -60,6 +60,13 @@ class Builder extends BaseBuilder
     ];
 
     /**
+     * If enable set uuid as unique identifier in record.
+     * If disable set uniqid as unique identifier in record.
+     * @var bool
+     */
+    protected $uuid = false;
+
+    /**
      * Operator conversion.
      *
      * @var array
@@ -103,6 +110,15 @@ class Builder extends BaseBuilder
         $this->processor = $processor;
         $this->useCollections = $this->shouldUseCollections();
         $this->returning([$this->connection->getBucketName().'.*']);
+    }
+
+    /**
+     * @param bool $enable
+     * @return Builder
+     */
+    public function setUuidEnable($enable = true){
+        $this->uuid = $enable;
+        return $this;
     }
 
     /**
@@ -195,7 +211,23 @@ class Builder extends BaseBuilder
      */
     public function get($columns = ['*'])
     {
-        return parent::get($columns);
+        $original = $this->columns;
+
+        if (is_null($original)) {
+            $this->columns = $columns;
+        }
+
+        $results = $this->processor->processSelect($this, $this->runSelect());
+
+        foreach ($results as $index=>$obj){
+            if(isset($obj['_id'])){
+                $results[$index]['_id'] = Helper::getIdWithoutCollection($this->type, $obj['_id']);
+            }
+        }
+
+        $this->columns = $original;
+
+        return collect($results);
     }
     
     /**
@@ -392,18 +424,18 @@ class Builder extends BaseBuilder
         }
 
         if (is_null($this->keys)) {
-            $this->useKeys(Helper::getUniqueId($this->type));
+            $this->useKeys(Helper::getUniqueId($this->uuid));
         }
 
         if ($batch){
             foreach ($values as &$value) {
                 $value[Helper::TYPE_NAME] = $this->type;
-                $key = Helper::getUniqueId($this->type);
+                $key = $this->type."::".Helper::getUniqueId($this->uuid);
                 $result = $this->connection->getCouchbaseBucket()->upsert($key, $value);
             }
         } else {
             $values[Helper::TYPE_NAME] = $this->type;
-            $result = $this->connection->getCouchbaseBucket()->upsert($this->keys, $values);
+            $result = $this->connection->getCouchbaseBucket()->upsert($this->type."::".$this->keys, $values);
         }
 
         return $result;
@@ -437,11 +469,12 @@ class Builder extends BaseBuilder
     public function pluck($column, $key = null)
     {
         $results = $this->get(is_null($key) ? [$column] : [$column, $key]);
-
+        $type = $this->type;
         // Convert ObjectID's to strings
         if ($key == '_id') {
-            $results = $results->map(function ($item) {
-                $item['_id'] = (string) $item['_id'];
+            $results = $results->map(function ($item) use ($type){
+                $id = (string) $item['_id'];
+                $item['_id'] = Helper::getIdWithoutCollection($type, $id);
                 return $item;
             });
         }
@@ -476,11 +509,11 @@ class Builder extends BaseBuilder
      *
      * @param  mixed   $column
      * @param  mixed   $value
-     * @return int
+     * @return mixed
      */
     public function push($column, $value = null, $unique = false)
     {
-        $obj = $this->connection->getCouchbaseBucket()->get($this->keys);
+        $obj = $this->connection->getCouchbaseBucket()->get($this->type."::".$this->keys);
         if (!isset($obj->value->{$column})) {
             $obj->value->{$column} = [];
         }
@@ -494,7 +527,7 @@ class Builder extends BaseBuilder
         $array = array_unique($array);
         $obj->value->{$column} = array_map('json_decode', $array);
 
-        return $this->connection->getCouchbaseBucket()->upsert($this->keys, $obj->value);
+        return $this->connection->getCouchbaseBucket()->upsert($this->type."::".$this->keys, $obj->value);
     }
 
     /**
@@ -502,12 +535,12 @@ class Builder extends BaseBuilder
      *
      * @param  mixed   $column
      * @param  mixed   $value
-     * @return int
+     * @return mixed
      */
     public function pull($column, $value = null)
     {
         try {
-            $obj = $this->connection->getCouchbaseBucket()->get($this->keys);
+            $obj = $this->connection->getCouchbaseBucket()->get($this->type."::".$this->keys);
             if (!is_array($value)) {
                 $value = [$value];
             }
@@ -527,7 +560,7 @@ class Builder extends BaseBuilder
             });
             $obj->value->{$column} = $filtered->flatten()->toArray();
 
-            return $this->connection->getCouchbaseBucket()->upsert($this->keys, $obj->value);
+            return $this->connection->getCouchbaseBucket()->upsert($this->type."::".$this->keys, $obj->value);
         } catch (\Exception $e) {
 
         }
@@ -593,7 +626,7 @@ class Builder extends BaseBuilder
         }
         return parent::runSelect();
     }
-    
+
     /**
      * Run the query as a "select" statement against the connection.
      *

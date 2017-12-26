@@ -338,7 +338,8 @@ class Grammar extends BaseGrammar
         $table = $this->wrapTable($query->from);
         // use-keys-clause:
         if (is_null($query->keys)) {
-            $query->useKeys(Helper::getUniqueId($values[Helper::TYPE_NAME]));
+            $uuidEnable = isset($query->uuid)? $query->uuid : false;
+            $query->useKeys(Helper::getUniqueId($uuidEnable));
         }
         // use-keys-clause:
         $keyClause = is_null($query->keys) ? null : $this->compileKeys($query);
@@ -431,8 +432,12 @@ class Grammar extends BaseGrammar
             if(empty($query->keys)) {
                 return 'USE KEYS []';
             }
+            $keys = [];
+            foreach ($query->keys as $key){
+                $keys[] = $query->type."::".$key;
+            }
             return 'USE KEYS [\''.implode('\', \'', $query->keys).'\']';
         }
-        return 'USE KEYS \''.$query->keys.'\'';
+        return 'USE KEYS \''.$query->type."::".$query->keys.'\'';
     }
 }
